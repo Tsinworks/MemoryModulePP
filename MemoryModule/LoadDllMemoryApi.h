@@ -10,6 +10,9 @@ typedef HMODULE HMEMORYMODULE;
 #define NT_SUCCESS(Status) (((NTSTATUS)(Status)) >= 0)
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 HMEMORYMODULE WINAPI LoadLibraryMemory(_In_ PVOID BufferAddress);
 
 HMEMORYMODULE WINAPI LoadLibraryMemoryExA(
@@ -30,6 +33,10 @@ HMEMORYMODULE WINAPI LoadLibraryMemoryExW(
 
 BOOL WINAPI FreeLibraryMemory(_In_ HMEMORYMODULE hMemoryModule);
 
+#ifdef __cplusplus
+}
+#endif
+
 #define NtLoadDllMemory						LdrLoadDllMemory
 #define NtLoadDllMemoryExA					LdrLoadDllMemoryExA
 #define NtLoadDllMemoryExW					LdrLoadDllMemoryExW
@@ -46,6 +53,5 @@ BOOL WINAPI FreeLibraryMemory(_In_ HMEMORYMODULE hMemoryModule);
 #define LoadLibraryMemoryEx LoadLibraryMemoryExA
 #endif
 #define NtLoadDllMemoryEx LdrLoadDllMemoryEx
-
 
 

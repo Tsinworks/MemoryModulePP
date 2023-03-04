@@ -1,5 +1,8 @@
 #pragma once
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 #define MEMORY_FEATURE_SUPPORT_VERSION				0x00000001
 #define MEMORY_FEATURE_MODULE_BASEADDRESS_INDEX		0x00000002  /* Windows8 and greater */
 #define MEMORY_FEATURE_LDRP_HEAP					0x00000004
@@ -61,6 +64,9 @@ NTSTATUS NTAPI LdrLoadDllMemoryExW(
 //Unload modules previously loaded from memory
 NTSTATUS NTAPI LdrUnloadDllMemory(_In_ HMEMORYMODULE BaseAddress);
 
+#ifdef __cplusplus
+}
+#endif
 #ifndef _USRDLL
 #ifdef _WIN64
 #pragma comment(linker,"/export:LdrUnloadDllMemoryAndExitThread")

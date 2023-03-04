@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include <cstdlib>
 
+extern "C"
 HMEMORYMODULE WINAPI LoadLibraryMemoryExW(
 	_In_ PVOID BufferAddress,
 	_In_ size_t Reserved,
@@ -15,6 +16,7 @@ HMEMORYMODULE WINAPI LoadLibraryMemoryExW(
 	return hMemoryModule;
 }
 
+extern "C"
 HMEMORYMODULE WINAPI LoadLibraryMemoryExA(
 	_In_ PVOID BufferAddress,
 	_In_ size_t Reserved,
@@ -59,10 +61,12 @@ HMEMORYMODULE WINAPI LoadLibraryMemoryExA(
 	return result;
 }
 
+extern "C"
 HMEMORYMODULE WINAPI LoadLibraryMemory(_In_ PVOID BufferAddress) {
 	return LoadLibraryMemoryExW(BufferAddress, 0, nullptr, nullptr, 0);
 }
 
+extern "C"
 BOOL WINAPI FreeLibraryMemory(_In_ HMEMORYMODULE hMemoryModule) {
 	NTSTATUS status = LdrUnloadDllMemory(hMemoryModule);
 	if (!NT_SUCCESS(status)) {

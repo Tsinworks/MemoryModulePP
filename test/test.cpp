@@ -117,6 +117,25 @@ end:
 }
 
 void test_uef() {
+    DWORD flags = LOAD_LIBRARY_SEARCH_USER_DIRS | LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR | LOAD_LIBRARY_SEARCH_APPLICATION_DIR | LOAD_LIBRARY_SAFE_CURRENT_DIRS | LOAD_LIBRARY_SEARCH_SYSTEM32 | LOAD_LIBRARY_SEARCH_DEFAULT_DIRS;
+    
+    AddDllDirectory(L"C:/Program Files (x86)/Common Files/Apple/Apple Application Support");
+    AddDllDirectory(L"C:/Program Files (x86)/Common Files/Apple/Internet Services");
+
+    // Load libraries, test passed
+    auto lib = LoadLibraryExA(
+        "C:/Program Files (x86)/Common Files/Apple/Apple Application Support/objc.dll",
+        NULL,
+        flags);
+    lib = LoadLibraryExA(
+        "C:/Program Files (x86)/Common Files/Apple/Apple Application Support/CoreFoundation.dll",
+        NULL,
+        flags);
+    lib = LoadLibraryExA(
+        "C:/Program Files (x86)/Common Files/Apple/Apple Application Support/CFNetwork.dll",
+        NULL,
+        flags);
+
     auto buffer = ReadDllFile("a.dll");
 
     HMODULE hm = LoadLibraryMemory(buffer);
