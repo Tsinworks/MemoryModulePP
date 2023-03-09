@@ -125,7 +125,7 @@ end:
 
 void test_ic_mem() {
     LPVOID buffer = ReadDllFile("E:/iCloudDll/objc.dll");
-
+    SetCurrentDirectoryA("E:/iCloudDll/");
     HMEMORYMODULE m1 = nullptr, m2 = m1;
     if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"objc", nullptr))) {
         printf("Failed to load objc.");
@@ -166,10 +166,30 @@ void test_ic_mem() {
     if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"ASL", nullptr))) {
         printf("Failed to load ASL.");
     }
+    buffer = ReadDllFile("E:/iCloudDll/JavaScriptCore.dll");
+    if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"JavaScriptCore", nullptr))) {
+        printf("Failed to load JavaScriptCore.");
+    }
+    buffer = ReadDllFile("E:/iCloudDll/WTF.dll");
+    if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"WTF", nullptr))) {
+        printf("Failed to load WTF.");
+    }
+    // crash here
     buffer = ReadDllFile("E:/iCloudDll/CoreFoundation.dll");
     if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"CoreFoundation", nullptr))) {
         printf("Failed to load CoreFoundation.");
     }
+    buffer = ReadDllFile("E:/iCloudDll/CFNetwork.dll");
+    if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"CFNetwork", nullptr))) {
+        printf("Failed to load CFNetwork.");
+    }
+    buffer = ReadDllFile("E:/iCloudDll/AOSKit.dll");
+    if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"AOSKit", nullptr))) {
+        printf("Failed to load AOSKit.");
+    }
+    auto icloud = LoadLibraryA("E:/iCloudDll/iCloud_main.dll");
+
+    FreeLibrary(icloud);
 }
 
 void test_ic()

@@ -92,7 +92,13 @@ NTSTATUS MemoryResolveImportTable(
 					FARPROC* funcRef;
 					LPCSTR name = (LPCSTR)(base + importDesc->Name);
 					HMODULE exist = GetModuleHandleA(name);
-					HMODULE handle = LoadLibraryA(name);
+
+					HMODULE handle;
+                    if (exist) {
+                        handle = exist;
+                    } else {
+                        handle = LoadLibraryA(name);
+                    }
 
 					if (!handle) {
 						status = STATUS_DLL_NOT_FOUND;
@@ -103,14 +109,15 @@ NTSTATUS MemoryResolveImportTable(
 					thunkRef = (uintptr_t*)(base + (importDesc->OriginalFirstThunk ? importDesc->OriginalFirstThunk : importDesc->FirstThunk));
 					funcRef = (FARPROC*)(base + importDesc->FirstThunk);
 					while (*thunkRef) {
+                        LPCSTR procName = IMAGE_SNAP_BY_ORDINAL(*thunkRef) ? (LPCSTR)IMAGE_ORDINAL(*thunkRef) : (LPCSTR)PIMAGE_IMPORT_BY_NAME(base + (*thunkRef))->Name;
 						*funcRef = GetProcAddress(
 							handle,
-							IMAGE_SNAP_BY_ORDINAL(*thunkRef) ? (LPCSTR)IMAGE_ORDINAL(*thunkRef) : (LPCSTR)PIMAGE_IMPORT_BY_NAME(base + (*thunkRef))->Name
+							procName
 						);
-						if (!*funcRef) {
+						/*if (!*funcRef) {
 							status = STATUS_ENTRYPOINT_NOT_FOUND;
 							break;
-						}
+						}*/
 						++thunkRef;
 						++funcRef;
 					}
