@@ -124,11 +124,51 @@ end:
 }
 
 void test_ic_mem() {
-    LPVOID buffer = ReadDllFile("C:/Users/tomic/Desktop/iCloudDll/iCloud_main.dll");
+    LPVOID buffer = ReadDllFile("E:/iCloudDll/objc.dll");
 
     HMEMORYMODULE m1 = nullptr, m2 = m1;
-    if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"icloud_main", nullptr))) {
-        printf("Failed to load iCloud.");
+    if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"objc", nullptr))) {
+        printf("Failed to load objc.");
+    }
+    buffer = ReadDllFile("E:/iCloudDll/libdispatch.dll");
+    if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"libdispatch", nullptr))) {
+        printf("Failed to load libdispatch.");
+    }
+    buffer = ReadDllFile("E:/iCloudDll/zlib1.dll");
+    if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"zlib1", nullptr))) {
+        printf("Failed to load zlib1.");
+    }
+    buffer = ReadDllFile("E:/iCloudDll/pthreadVC2.dll");
+    if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"pthreadVC2", nullptr))) {
+        printf("Failed to load pthreadVC2.");
+    }
+    buffer = ReadDllFile("E:/iCloudDll/SQLite3.dll");
+    if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"SQLite3", nullptr))) {
+        printf("Failed to load SQLite3.");
+    }
+    buffer = ReadDllFile("E:/iCloudDll/icudt62.dll");
+    if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"icudt62", nullptr))) {
+        printf("Failed to load icudt62.");
+    }
+    buffer = ReadDllFile("E:/iCloudDll/libicuuc.dll");
+    if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"libicuuc", nullptr))) {
+        printf("Failed to load libicuuc.");
+    }
+    buffer = ReadDllFile("E:/iCloudDll/libicuin.dll");
+    if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"libicuin", nullptr))) {
+        printf("Failed to load libicuin.");
+    }
+    buffer = ReadDllFile("E:/iCloudDll/libxml2.dll");
+    if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"libxml2", nullptr))) {
+        printf("Failed to load libxml2.");
+    }
+    buffer = ReadDllFile("E:/iCloudDll/ASL.dll");
+    if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"ASL", nullptr))) {
+        printf("Failed to load ASL.");
+    }
+    buffer = ReadDllFile("E:/iCloudDll/CoreFoundation.dll");
+    if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"CoreFoundation", nullptr))) {
+        printf("Failed to load CoreFoundation.");
     }
 }
 
