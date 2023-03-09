@@ -2,6 +2,8 @@
 #include "../MemoryModule/LoadDllMemoryApi.h"
 #include <cstdio>
 
+//PMMP_GLOBAL_DATA MmpGlobalDataPtr = *(PMMP_GLOBAL_DATA*)GetProcAddress(GetModuleHandleA("MemoryModule.dll"), "MmpGlobalDataPtr");
+
 static PVOID ReadDllFile(LPCSTR FileName) {
     LPVOID buffer;
     size_t size;
@@ -34,7 +36,12 @@ static void DisplayStatus() {
     );
 }
 
+void test_ic();
+void test_ic_mem();
 int test() {
+    test_ic_mem();
+    test_ic();
+
     LPVOID buffer = ReadDllFile("a.dll");
 
     HMEMORYMODULE m1 = nullptr, m2 = m1;
@@ -116,9 +123,19 @@ end:
     return 0;
 }
 
-void test_uef() {
+void test_ic_mem() {
+    LPVOID buffer = ReadDllFile("C:/Users/tomic/Desktop/iCloudDll/iCloud_main.dll");
+
+    HMEMORYMODULE m1 = nullptr, m2 = m1;
+    if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"icloud_main", nullptr))) {
+        printf("Failed to load iCloud.");
+    }
+}
+
+void test_ic()
+{
     DWORD flags = LOAD_LIBRARY_SEARCH_USER_DIRS | LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR | LOAD_LIBRARY_SEARCH_APPLICATION_DIR | LOAD_LIBRARY_SAFE_CURRENT_DIRS | LOAD_LIBRARY_SEARCH_SYSTEM32 | LOAD_LIBRARY_SEARCH_DEFAULT_DIRS;
-    
+
     AddDllDirectory(L"C:/Program Files (x86)/Common Files/Apple/Apple Application Support");
     AddDllDirectory(L"C:/Program Files (x86)/Common Files/Apple/Internet Services");
 
@@ -135,7 +152,9 @@ void test_uef() {
         "C:/Program Files (x86)/Common Files/Apple/Apple Application Support/CFNetwork.dll",
         NULL,
         flags);
+}
 
+void test_uef() {
     auto buffer = ReadDllFile("a.dll");
 
     HMODULE hm = LoadLibraryMemory(buffer);
@@ -149,8 +168,27 @@ void test_uef() {
     return;
 }
 
+void Tp() {
+    auto pool = CreateThreadpool(nullptr);
+    if (pool) {
+
+        SetThreadpoolThreadMaximum(pool, 1);
+        SetThreadpoolThreadMinimum(pool, 1);
+
+        Sleep(1000);
+
+        CloseThreadpool(pool);
+    }
+}
+
 int main() {
-    test_uef();
+
+    DisplayStatus();
+    test();
+    
+    Tp();
+
+    WaitForSingleObject(NtCurrentProcess(), INFINITE);
 
     return 0;
 }
