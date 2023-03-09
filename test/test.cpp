@@ -166,18 +166,18 @@ void test_ic_mem() {
     if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"ASL", nullptr))) {
         printf("Failed to load ASL.");
     }
-    buffer = ReadDllFile("E:/iCloudDll/JavaScriptCore.dll");
-    if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"JavaScriptCore", nullptr))) {
-        printf("Failed to load JavaScriptCore.");
+    // crash here
+    buffer = ReadDllFile("E:/iCloudDll/CoreFoundation.dll");
+    if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"CoreFoundation", nullptr))) {
+        printf("Failed to load CoreFoundation.");
     }
     buffer = ReadDllFile("E:/iCloudDll/WTF.dll");
     if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"WTF", nullptr))) {
         printf("Failed to load WTF.");
     }
-    // crash here
-    buffer = ReadDllFile("E:/iCloudDll/CoreFoundation.dll");
-    if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"CoreFoundation", nullptr))) {
-        printf("Failed to load CoreFoundation.");
+    buffer = ReadDllFile("E:/iCloudDll/JavaScriptCore.dll");
+    if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"JavaScriptCore", nullptr))) {
+        printf("Failed to load JavaScriptCore.");
     }
     buffer = ReadDllFile("E:/iCloudDll/CFNetwork.dll");
     if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"CFNetwork", nullptr))) {
