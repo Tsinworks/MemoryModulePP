@@ -127,6 +127,7 @@ void test_ic_mem() {
     LPVOID buffer = ReadDllFile("E:/iCloudDll/objc.dll");
     SetCurrentDirectoryA("E:/iCloudDll/");
     HMEMORYMODULE m1 = nullptr, m2 = m1;
+#if 0
     if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"objc", nullptr))) {
         printf("Failed to load objc.");
     }
@@ -179,6 +180,7 @@ void test_ic_mem() {
     if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"JavaScriptCore", nullptr))) {
         printf("Failed to load JavaScriptCore.");
     }
+#endif
     buffer = ReadDllFile("E:/iCloudDll/CFNetwork.dll");
     if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"CFNetwork", nullptr))) {
         printf("Failed to load CFNetwork.");
@@ -235,7 +237,7 @@ void test_uef() {
 
 int main() {
     DisplayStatus();
-    test_cf();
+    test_ic_mem();
 
     return 0;
 }
