@@ -122,6 +122,24 @@ void test_cf() {
     auto buffer = ReadDllFile("CoreFoundation.dll");
 
     if (buffer) {
+        HMODULE m1 = NULL;
+        if (!NT_SUCCESS(LdrLoadDllMemoryExW(&m1, nullptr, 0, buffer, 0, L"CoreFoundation", nullptr))) {
+            printf("Failed to load CoreFoundation.");
+        }
+        //HMODULE hm = LoadLibraryMemory(buffer);
+        delete[]buffer;
+
+        /*if (hm) {
+            printf("Load success: %p\n", hm);
+            FreeLibraryMemory(hm);
+        }
+        else {
+            printf("Load fail: %d\n", GetLastError());
+        }*/
+    }
+    buffer = ReadDllFile("CFNetwork.dll");
+
+    if (buffer) {
         HMODULE hm = LoadLibraryMemory(buffer);
         delete[]buffer;
 

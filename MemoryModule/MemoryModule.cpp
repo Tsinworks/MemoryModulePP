@@ -90,7 +90,14 @@ NTSTATUS MemoryResolveImportTable(
 				for (DWORD i = 0; i < count; ++i, ++importDesc) {
 					uintptr_t* thunkRef;
 					FARPROC* funcRef;
-					HMODULE handle = LoadLibraryA((LPCSTR)(base + importDesc->Name));
+					PCSTR dllname = (LPCSTR)(base + importDesc->Name);
+					HMODULE exist = GetModuleHandleA(dllname);
+					HMODULE handle;
+					if (exist) {
+						handle = exist;
+					} else {
+						handle = LoadLibraryA(dllname);
+					}
 
 					if (!handle) {
 						status = STATUS_DLL_NOT_FOUND;
